@@ -10,6 +10,7 @@ def aggregate():
   p.add_option('--end', '-e', default="3000", type="int", help="Just aggregate data up to this year.")
   p.add_option('--limit_rows', '-l', default=None, type="int", help="Just parse a fixed number of rows.")
   p.add_option('--sep', '-p', default=",", help="Character that splits column in main")
+  p.add_option('--fill', '-f', action="store_true", dest="fill", default=False, help="Fill missing months with zeroes.")
   p.add_option('--header', '-d', default=None, help="Specify header from a separate file.")
   p.add_option('--header_sep', default=",", help="Character to split header row.")
   options, arguments = p.parse_args()
@@ -75,6 +76,16 @@ def aggregate():
     ix += 1
     if options.limit_rows and ix > options.limit_rows:
       break
+
+    if options.fill:
+      for year in counts.keys():
+        for month in counts[year].keys():
+          for country_1 in counts[year][month].keys():
+            for country_2 in counts[year][month][country_1].keys():
+              for event_code in event_codes:
+                counts[year][month][country_1][country_2][event_code] = counts[year][month][country_1][country_2][event_code] or 0
+              for actor_type in actor_types:
+                counts[year][month][country_1][country_2][event_code] = counts[year][month][country_1][country_2][actor_type] or 0
 
   eventcodestr = ",".join('event' + i for i in event_codes)
   typestr = ",".join(['actor' + i for i in actor_types])
