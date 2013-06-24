@@ -19,6 +19,9 @@ python aggregator.py < data/train-sampled.csv --limit_rows 10000 > outfile.csv
 - `-f` fill missing months with zeroes (True/False)
 - `-d` specify header from separate file
 - `--header_sep` like `-p` but for the `-d` file
+- `--geo1`, Geography desired in Actor1Geo_CountryCode column.
+- `--geo2`, Geography desired in Actor2Geo_CountryCode column.
+- `--quad_class`, Quad Class codes (comma seperated)
 
 ## Subsetter
 
@@ -38,6 +41,10 @@ python subsetter.py < gdelt-file.txt -d header.txt --country2 AFG > subset.tsv
 - `--header_sep` like `-p` but for the `-d` file
 - `--country1` country desired in Actor1CountryCode column
 - `--country2` country desired in Actor2CountryCode column
+- `--byquad`, Set to True to count by Quad Class
+- `--bygeo`, Set to True to count by ActorGeo instead of ActorCode
+- `--timeformat`, The time format to pass to strptime, default to "%Y%m%d"
+
 
 ### Sampling
 To sample from a file:
