@@ -6,11 +6,10 @@ from datetime import *
 
 def subset():
   p = optparse.OptionParser()
-  p.add_option('--start', '-s', default="1900", type="int", help="Just aggregate data starting with this year.")
-  p.add_option('--end', '-e', default="3000", type="int", help="Just aggregate data up to this year.")
+  p.add_option('--start', '-s', default="1900", type="int", help="Just subset data starting with this year.")
+  p.add_option('--end', '-e', default="3000", type="int", help="Just subset data up to this year.")
   p.add_option('--limit_rows', '-l', default=None, type="int", help="Just parse a fixed number of rows.")
   p.add_option('--sep', '-p', default="\t", help="Character that splits column in main")
-  p.add_option('--fill', '-f', action="store_true", dest="fill", default=False, help="Fill missing months with zeroes.")
   p.add_option('--header', '-d', default=None, help="Specify header from a separate file.")
   p.add_option('--header_sep', default="\t", help="Character to split header row.")
   p.add_option('--country1', default=None, help="Country desired in Actor1CountryCode column.")
