@@ -1,5 +1,6 @@
 gdelt-tools
 ===========
+This package provides some command line tools for working iwth GDELT data.  It assumes that you are comfortable with [Unix style IO Redirection](http://www.tuxfiles.org/linuxhelp/iodirection.html).  Note if you are using raw GDELT files you can port multiple files into stdin via wildcards (e.g. *.export.csv)
 
 ## Aggregator
 
@@ -27,7 +28,7 @@ python aggregator.py < data/train-sampled.csv --limit_rows 10000 > outfile.csv
 python subsetter.py < gdelt-file.txt -d header.txt --country2 AFG > subset.tsv
 ```
 
-### Options 
+### Options
 
 - `-s` start year
 - `-e` end year
@@ -38,8 +39,9 @@ python subsetter.py < gdelt-file.txt -d header.txt --country2 AFG > subset.tsv
 - `--country1` country desired in Actor1CountryCode column
 - `--country2` country desired in Actor2CountryCode column
 
-## Sampling 
-To sample from a file: 
+### Sampling
+To sample from a file:
 ```
 perl -ne 'print if (rand() < .01)' large_input_file.txt > sampled_output.txt
 ```
+Note that the 0.01 yields 1% of the rows.

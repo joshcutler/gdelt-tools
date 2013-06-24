@@ -36,3 +36,5 @@ nosetests.xml
 
 # OS X miscellany
 .DS_Store
+
+data/*
