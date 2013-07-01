@@ -43,14 +43,14 @@ def aggregate():
       continue
 
     if ix == 0:
-      date_ix = headers.index('Day')
+      date_ix = headers.index('SQLDATE')
 
       if options.bygeo:
         actor1_geo_country_code_ix = headers.index('Actor1Geo_CountryCode')
         actor2_geo_country_code_ix = headers.index('Actor2Geo_CountryCode')
       else:
-        actor1_geo_country_code_ix = headers.index('Actor1Code')
-        actor2_geo_country_code_ix = headers.index('Actor2Code')
+        actor1_geo_country_code_ix = headers.index('Actor1CountryCode')
+        actor2_geo_country_code_ix = headers.index('Actor2CountryCode')
 
       if 'QuadClass' in headers:
         quad_class_ix = headers.index('QuadClass')
@@ -107,15 +107,18 @@ def aggregate():
 
         for actor_type in actor_types:
           counts[this_date.year][this_date.month][country_1][country_2][actor_type] = 0
+      try:
+        if options.byquad:
+          counts[this_date.year][this_date.month][country_1][country_2][quad_class_val] += 1
+        else:
+          counts[this_date.year][this_date.month][country_1][country_2][event_root_code] += 1
 
-      if options.byquad:
-        counts[this_date.year][this_date.month][country_1][country_2][quad_class_val] += 1
-      else:
-        counts[this_date.year][this_date.month][country_1][country_2][event_root_code] += 1
+        for actor_type in actor_types:
+          if (actor_1_type == actor_type) or (actor_2_type == actor_type):
+            counts[this_date.year][this_date.month][country_1][country_2][actor_type] += 1
 
-      for actor_type in actor_types:
-        if (actor_1_type == actor_type) or (actor_2_type == actor_type):
-          counts[this_date.year][this_date.month][country_1][country_2][actor_type] += 1
+      except:
+        continue 
 
     ix += 1
     if options.limit_rows and ix > options.limit_rows:
