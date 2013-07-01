@@ -74,13 +74,16 @@ def aggregate():
         continue
 
     # Parse some dates
-    this_date = datetime.strptime(line[date_ix], options.timeformat)
-    country_1 = line[actor1_geo_country_code_ix]
-    country_2 = line[actor2_geo_country_code_ix]
-    actor_1_type = line[actor1_type1_code_ix]
-    actor_2_type = line[actor2_type1_code_ix]
-    event_root_code = line[root_code_ix]
-    quad_class_val = line[quad_class_ix]
+    try:
+      this_date = datetime.strptime(line[date_ix], options.timeformat)
+      country_1 = line[actor1_geo_country_code_ix]
+      country_2 = line[actor2_geo_country_code_ix]
+      actor_1_type = line[actor1_type1_code_ix]
+      actor_2_type = line[actor2_type1_code_ix]
+      event_root_code = line[root_code_ix]
+      quad_class_val = line[quad_class_ix]
+    except:
+      continue
 
     # Is this in our window to aggregate?
     if this_date.year >= options.start and this_date.year <= options.end:
